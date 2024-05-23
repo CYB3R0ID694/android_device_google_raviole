@@ -6,7 +6,11 @@
 
 # Inherit some common Lineage stuff.
 TARGET_DISABLE_EPPE := true
+DISABLE_ARTIFACT_PATH_REQUIREMENTS := true
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+
+# Gapps
+$(call inherit-product-if-exists, vendor/gapps/arm64/arm64-vendor.mk)
 
 # Inherit device configuration
 $(call inherit-product, device/google/raviole/aosp_raven.mk)
@@ -19,9 +23,16 @@ PRODUCT_BRAND := google
 PRODUCT_MODEL := Pixel 6 Pro
 PRODUCT_NAME := lineage_raven
 
-# Boot animation
-TARGET_SCREEN_HEIGHT := 3120
-TARGET_SCREEN_WIDTH := 1440
+# Crdroid Extra Stuffs
+TARGET_SUPPORTS_QUICK_TAP := true
+TARGET_IS_PIXEL := true
+WITH_GAPPS := true
+TARGET_HAS_UDFPS := true
+TARGET_BOOT_ANIMATION_RES := 1080
+EXTRA_UDFPS_ANIMATIONS := true
+
+# Use Scudo instead of Jemalloc
+PRODUCT_USE_SCUDO := true
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
     TARGET_PRODUCT=raven \
